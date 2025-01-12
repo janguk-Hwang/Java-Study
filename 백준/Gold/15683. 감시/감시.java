@@ -14,8 +14,8 @@ public class Main{
         }
     }
 
-    public static int[] dx = {-1, 1, 0, 0};
-    public static int[] dy = {0, 0, -1, 1};
+    public static int[] dy = {-1, 1, 0, 0};
+    public static int[] dx = {0, 0, -1, 1};
     //북(0), 남(1), 서(2), 동(3)
     public static int[][][] mode = {{{0}},
             {{0}, {1}, {2}, {3}},
