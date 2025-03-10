@@ -46,10 +46,11 @@ public class Main {
         // 결과 출력
         for(int i=0; i<n; i++) {
             for (int j = 0; j < m; j++) {
-                // dist 배열에 값이 0인 곳은 아직 방문되지 않은 곳
+                // 갈 수 있는 땅이지만 dist가 0이면 갈 수 없는 땅
                 if (matrix[i][j] == 1 && dist[i][j] == 0) {
-                    System.out.print(-1 + " "); // 갈 수 없으면 -1 출력
-                } else {
+                    System.out.print(-1 + " ");
+                } 
+                else {
                     System.out.print(dist[i][j] + " ");
                 }
             }
@@ -68,7 +69,7 @@ public class Main {
         visited[r][c] = true;
 
         while(!q.isEmpty()){
-            int[] cur = q.poll();
+            int[] cur = q.poll();   // r, c가 계속 값이 이동해야 함으로 q에서 뽑아서 현재 좌표를 할당
             r = cur[0];
             c = cur[1];
 
@@ -79,7 +80,7 @@ public class Main {
 
                 // 내부에 있고, 방문하지 않은 곳이며, 갈 수 있는 땅이면
                 if(nr >= 0 && nr < n && nc >= 0 && nc < m && !visited[nr][nc] && matrix[nr][nc] != 0){
-                    visited[nr][nc] = true;
+                    visited[nr][nc] = true;     // 방문처리
                     q.add(new int[]{nr, nc});
                     dist[nr][nc] = dist[r][c] + 1;  // 거리 갱신
                 }
