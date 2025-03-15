@@ -45,18 +45,14 @@ public class Main {
                 }
             }
 
-            minMove = Integer.MAX_VALUE; // 최소 이동 횟수 초기화
+            minMove = Integer.MAX_VALUE;
 
             // 모든 가능한 시작점에서 탐색 수행
             for (int[] start : start_xy) {
-                // 방문 배열 초기화
-                for (int i = 0; i < n; i++) {
-                    Arrays.fill(visited[i], false);
-                }
-
                 // 시작점 방문 표시 후 DFS 탐색
                 visited[start[0]][start[1]] = true;
-                dfs(start[0], start[1], 0, 1);
+                dfs(start[0], start[1], 0, 1);  // x, y, 이동 횟수 moves, 방문한 빈 공간 개수
+                visited[start[0]][start[1]] = false;  // ✅ DFS 종료 후 시작점을 초기화
             }
 
             // 모든 빈 공간을 방문할 수 없는 경우 -1 출력
@@ -65,7 +61,8 @@ public class Main {
         }
     }
 
-    // DFS 탐색 (현재 위치 x, y, 이동 횟수 moves, 방문한 빈 공간 개수 visitedCount)
+    // DFS 탐색 (현재 위치 x, y, 이동 횟수 moves, 방문한 빈 공간 개수)
+    // 시작점에 대해서 dfs를 재귀적으로 실행하여 모든 빈 칸을 방문할 때까지 수행한 뒤 최소 이동 횟수를 갱신하고 backtracking을 하여 visited 배열을 재사용할 수 있도록 함
     static void dfs(int x, int y, int moves, int visitedCount) {
         // 모든 빈 공간을 방문한 경우, 최소 이동 횟수 갱신
         if (visitedCount == emptyCount) {
@@ -74,17 +71,17 @@ public class Main {
         }
 
         for (int d = 0; d < 4; d++) {
-            int nx = x, ny = y; // 이동한 후의 위치
-            boolean moved = false; // 이동 여부 체크
+            int nx = x, ny = y;
+            boolean moved = false;
 
-            // 이동 가능한 최대 거리까지 이동
+            // 무한 루프 while문으로 이동 가능한 최대 거리까지 이동
             while (true) {
                 int tempx = nx + dx[d]; // 임시 위치
                 int tempy = ny + dy[d];
 
                 // 이동 불가능한 경우 (경계 이탈, 장애물 직면, 이미 방문한 곳)
                 if (tempx < 0 || tempx >= n || tempy < 0 || tempy >= m || board[tempx][tempy] == '*' || visited[tempx][tempy]) {
-                    break;
+                    break;  // while문을 빠져나와 특정 방향에 대한 이동 종료
                 }
 
                 nx = tempx;
@@ -99,7 +96,11 @@ public class Main {
                 backtraking(x, y, nx, ny, d);
             }
         }
+
+        // DFS 탐색이 끝난 후 방문 상태 복구 (백트래킹)
+        visited[x][y] = false;
     }
+
 
     // 특정 방향으로 방문한 칸 개수 계산
     static int countVisited(int x, int y, int nx, int ny, int d) {
@@ -112,7 +113,7 @@ public class Main {
         return count;
     }
 
-    // 특정 방향으로 방문했던 칸을 되돌림 (백트래킹)
+    // 특정 방향으로 방문했던 칸을 되돌림 (백트래킹, visited 배열 재사용)
     static void backtraking(int x, int y, int nx, int ny, int d) {
         while (x != nx || y != ny) {
             x += dx[d];
