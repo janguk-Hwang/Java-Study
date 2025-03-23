@@ -1,70 +1,103 @@
 import java.io.*;
 import java.util.*;
 
+import static java.lang.Math.ceil;
+// 입력으로 주어지는 모든 수는 -2^63보다 크거나 같고, 2^63-1보다 작거나 같은 정수이다.
 public class Main {
-    static long[] tree;
-    static long[] arr;
-    static int N;
-
+    static StringTokenizer st;
+    static int N, M, K;
+    static long[] seg_tree;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
 
-        // N: 수의 개수, M: 수 변경 횟수, K: 구간 합을 구하는 횟수
+        st = new StringTokenizer(br.readLine());
         N = Integer.parseInt(st.nextToken());
-        int M = Integer.parseInt(st.nextToken());
-        int K = Integer.parseInt(st.nextToken());
+        M = Integer.parseInt(st.nextToken());
+        K = Integer.parseInt(st.nextToken());
 
-        arr = new long[N + 1]; // 1부터 시작하는 배열이므로 크기를 N+1로 설정
-        tree = new long[N * 4]; // 세그먼트 트리는 일반적으로 4배 크기로 할당
+        int tree_size = TreeSize();
 
-        for (int i = 1; i <= N; i++) {
-            arr[i] = Long.parseLong(br.readLine());
+        seg_tree = new long[tree_size];
+
+        int start_index = tree_size / 2;
+
+        //입력 받기
+        for(int i=0; i<N; i++){
+            seg_tree[start_index + i] = Long.parseLong(br.readLine());
         }
 
-        // 세그먼트 트리 초기화
-        init(1, N, 1);
+        //세그먼트 트리 생성
+        init(start_index);
 
-        // M번의 값 변경 및 K번의 구간 합 연산 수행
-        for (int i = 0; i < M + K; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            int a = Integer.parseInt(st.nextToken()); // 연산 타입 (1: 값 변경, 2: 구간 합)
-            int b = Integer.parseInt(st.nextToken()); // 연산에 사용할 인덱스 또는 범위 시작
-            long c = Long.parseLong(st.nextToken()); // 값 또는 범위 끝
+        int p = M+K;
 
-            if (a == 1) { // 값 변경 연산
-                update(1, N, 1, b, c - arr[b]); // 차이값을 업데이트하여 반영
-                arr[b] = c; // 원본 배열도 업데이트
-            } else if (a == 2) { // 구간 합 연산
-                System.out.println(sum(1, N, 1, b, (int) c));
+        while(p-- > 0){
+            st = new StringTokenizer(br.readLine());
+            // a,b의 범위는 1 ~ 1_000_000
+            int a = Integer.parseInt(st.nextToken());
+            int b = Integer.parseInt(st.nextToken());
+            long c = Long.parseLong(st.nextToken());
+
+            if(a == 1){
+                update(b + start_index - 1, c);
+            }
+            else if(a == 2){
+                System.out.println(sum(b + start_index - 1, (int)(c + start_index - 1)));
             }
         }
     }
 
-    static long init(int start, int end, int node) {
-        if (start == end) return tree[node] = arr[start]; // 리프 노드일 경우
-
-        int mid = (start + end) / 2; // 중간 지점 계산
-        return tree[node] = init(start, mid, node * 2) + init(mid + 1, end, node * 2 + 1);
-    }
-
-    static void update(int start, int end, int node, int index, long diff) {
-        if (index < start || index > end) return; // 현재 범위에 포함되지 않는 경우 종료
-
-        tree[node] += diff; // 차이만큼 갱신
-
-        if (start != end) { // 리프 노드가 아닌 경우 자식 노드도 갱신
-            int mid = (start + end) / 2;
-            update(start, mid, node * 2, index, diff);
-            update(mid + 1, end, node * 2 + 1, index, diff);
+    public static void init(int start_index) {
+        for(int i=start_index; i<start_index+N; i++){
+            int idx2 = i;
+            while(idx2 > 1){
+                idx2 /= 2;
+                seg_tree[idx2] += seg_tree[i];
+            }
         }
     }
 
-    static long sum(int start, int end, int node, int left, int right) {
-        if (left > end || right < start) return 0; // 구간이 벗어난 경우 0 반환
-        if (left <= start && end <= right) return tree[node]; // 구간 내에 완전히 포함된 경우 해당 노드 값 반환
+    public static long sum(int start_index, int end_index) {
+        long sum = 0;
 
-        int mid = (start + end) / 2; // 중간 지점 계산
-        return sum(start, mid, node * 2, left, right) + sum(mid + 1, end, node * 2 + 1, left, right);
+        while(start_index <= end_index) {
+            // 시작이 오른쪽 자식인 경우 독립 노드로
+            if(start_index % 2 == 1){
+                sum += seg_tree[start_index];
+            }
+            // 끝이 왼쪽 자식인 경우 독립노드로
+            if(end_index % 2 == 0){
+                sum += seg_tree[end_index];
+            }
+
+            // 더 안쪽 노드로 이동
+            start_index = (start_index + 1) / 2;
+            end_index = (end_index - 1) / 2;
+        }
+
+        return sum;
+    }
+
+    //어떤 노드가 값이 바뀌면 해당 노드를 포함하는 부모 노드들을 모두 갱신
+    public static void update(int index, long value){    //해당 index를 value로 update
+        long diff = value - seg_tree[index];
+        //value로 해당 노드를 바꾸고
+        seg_tree[index] = value;
+        //루트 노드 전까지
+        while(index > 1){
+            //부모 노드 갱신
+            seg_tree[index / 2] += diff;
+            index /= 2;
+        }
+    }
+
+    //2^k >= N 을 만족하는 최소 k에 대하여 2^k*2
+    private static int TreeSize() {
+        int i = 0;
+        while(true){
+            if(Math.pow(2, i++) >= N){
+                return (int)Math.pow(2, i);
+            }
+        }
     }
 }
