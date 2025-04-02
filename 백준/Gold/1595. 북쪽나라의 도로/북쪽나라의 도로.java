@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 
+// 특정 도시를 두 번 이상 지나가지 않고서 임의의 두 도시간을 이동하는 경로가 유일하도록 도로가 설계되어 있기 때문에
+// 사이클이 없다는 것을 의미하고 사이클이 없다는 것은 트리 구조라는 것을 의미한다.
 class Main {
     static class Node {
         int to, weight;
@@ -10,19 +12,18 @@ class Main {
         }
     }
 
-    static List<Node>[] tree;
+    static List<Node>[] tree;   // 트리를 저장하는 인접 리스트
     static boolean[] visited;
-    static int maxDistance = 0;
-    static int farthestNode = 0;
-
+    static int maxDistance = 0;     // 최대 거리 저장 변수
+    static int farthestNode = 0;    // 가장 먼 노드를 저장할 변수
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        tree = new ArrayList[10001];
+        tree = new ArrayList[10001];    // 바로 최대인 10001 크기만큼 만드는 것보다 도시의 개수만큼 만드는 것이 좋을 것 같음
         for (int i = 0; i < 10001; i++) {
             tree[i] = new ArrayList<>();
         }
 
-        Set<Integer> nodes = new HashSet<>(); // 입력된 노드 저장
+        HashSet<Integer> nodes = new HashSet<>(); // 입력된 노드 저장
         String line;
         while ((line = br.readLine()) != null && !line.isEmpty()) { // 입력이 없으면 종료
             String[] str = line.split(" ");
