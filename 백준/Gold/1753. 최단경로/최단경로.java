@@ -4,13 +4,13 @@ import java.io.*;
 public class Main {
     static StringTokenizer st;
     static int v, e, k;
+    static int[] d;
     static int INF = Integer.MAX_VALUE;
     static ArrayList<Node>[] adj;
-    static int[] d;
     static PriorityQueue<Node> pq = new PriorityQueue<>();
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         st = new StringTokenizer(br.readLine(), " ");
         v = Integer.parseInt(st.nextToken());
         e = Integer.parseInt(st.nextToken());
@@ -21,9 +21,8 @@ public class Main {
 
         for(int i=0; i<v+1; i++){
             adj[i] = new ArrayList<>();
-            d[i] = INF;
         }
-
+        Arrays.fill(d, INF);
         for(int j=0; j<e; j++){
             st = new StringTokenizer(br.readLine(), " ");
             int s = Integer.parseInt(st.nextToken());
@@ -41,7 +40,6 @@ public class Main {
         System.out.println(sb);
     }
 
-    // Node 클래스
     static class Node implements Comparable<Node>{
         int weight;
         int dest;
@@ -62,20 +60,20 @@ public class Main {
 
         while(!pq.isEmpty()){
             Node now = pq.poll();
-            int distance = now.weight;
-            int destination = now.dest;
+            int dist = now.weight;
+            int dest = now.dest;
 
-            if(d[destination] < distance){
+            if(d[dest] < dist){
                 continue;
             }
 
-            for(Node next : adj[destination]){
+            for(Node next : adj[dest]){
                 int nextDistance = next.weight;
                 int nextNode = next.dest;
 
-                if(d[nextNode] > nextDistance + distance) {
-                    d[nextNode] = nextDistance + distance;
-                    pq.offer(new Node(nextDistance + distance, nextNode));
+                if(d[nextNode] > nextDistance + dist) {
+                    d[nextNode] = nextDistance + dist;
+                    pq.offer(new Node(nextDistance + dist, nextNode));
                 }
             }
         }
