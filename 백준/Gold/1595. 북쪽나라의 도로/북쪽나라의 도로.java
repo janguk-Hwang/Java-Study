@@ -14,8 +14,9 @@ public class Main {
     static int maxDist, farthestNode;
     static ArrayList<Edge>[] adjList;   // 연결되어 있는 도시를 담는 리스트
     static boolean[] visited;
+    static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    static StringTokenizer st;
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         adjList = new ArrayList[10001];
         for (int i = 0; i < 10001; i++) {
             adjList[i] = new ArrayList<>();
@@ -23,7 +24,7 @@ public class Main {
 
         String line;
         while ((line = br.readLine()) != null && !line.isEmpty()) {
-            StringTokenizer st = new StringTokenizer(line);
+            st = new StringTokenizer(line);
             int s = Integer.parseInt(st.nextToken());
             int e = Integer.parseInt(st.nextToken());
             int cost = Integer.parseInt(st.nextToken());
