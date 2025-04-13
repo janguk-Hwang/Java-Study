@@ -23,7 +23,7 @@ public class Main {
         init(startIndex);
 
         for(int i=0; i<m; i++){
-            st = new StringTokenizer(br.readLine());
+            st = new StringTokenizer(br.readLine(), " ");
             long a = Long.parseLong(st.nextToken()) + startIndex - 1;
             long b = Long.parseLong(st.nextToken()) + startIndex - 1;
             sb.append(query(a, b)).append("\n");
