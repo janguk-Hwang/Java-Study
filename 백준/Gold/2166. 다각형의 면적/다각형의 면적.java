@@ -28,6 +28,6 @@ public class Main {
         }
 
         double result = Math.abs(area) / 2.0;
-        System.out.printf("%.1f\n", result);
+        System.out.printf("%.1f", result);
     }
 }
