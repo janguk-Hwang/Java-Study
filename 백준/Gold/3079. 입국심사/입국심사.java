@@ -32,7 +32,7 @@ public class Main {
             for(int i=0; i<n; i++){
                 throughput = mid/tk[i];
                 sum += throughput;  // mid 시간동안 처리할 수 있는 사람의 총합
-                if(sum > m) break;
+                if(sum > m) break;  // 이미 처리한 사람이 m을 넘으면 굳이 할 필요 없음
             }
             // 처리할 수 있는 사람의 수가 상근이 무리보다 크거나 같으면 시간을 더 줄인다.
             if(sum >= m){
