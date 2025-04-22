@@ -17,7 +17,7 @@ public class Main {
             max = Math.max(max, lan[i]);
         }
 
-        long start = 1;
+        long start = 0;
         long end = max + 1;
         while(start + 1 < end){
             long mid = (start + end) / 2;
