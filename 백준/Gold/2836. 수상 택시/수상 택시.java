@@ -19,7 +19,7 @@ public class Main {
             if(start > end) left.add(new int[]{start, end});
         }
 
-        long backLength = 0; // 총 역방향 이동 거리 누적 변수
+        backLength = 0; // 총 역방향 이동 거리 누적 변수
 
         if (left.isEmpty()) total = m; // 역방향 이동 없으면 총 거리는 m
         else {
