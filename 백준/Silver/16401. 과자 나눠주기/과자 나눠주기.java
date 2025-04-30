@@ -18,25 +18,17 @@ public class Main {
             snack[i] = Integer.parseInt(st.nextToken());
             max = Math.max(max, snack[i]);
         }
-
-        // ttttttttffffffffff
         int start = 1;
         int end = max + 1;
         while(start + 1 < end){
             cnt = 0;
             mid = (start + end) / 2;
-            for(int i=0; i<n; i++){
-                cnt += snack[i] / mid;
-            }
-            // 가능
+            for(int i=0; i<n; i++) cnt += snack[i] / mid;
             if(cnt >= m) start = mid;
             else end = mid;
         }
         cnt = 0;
-        for (int i = 0; i < n; i++) {
-            cnt += snack[i] / start;
-        }
+        for (int i = 0; i < n; i++) cnt += snack[i] / start;
         System.out.println(cnt >= m ? start : 0);
-
     }
 }
