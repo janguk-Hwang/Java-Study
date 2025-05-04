@@ -3,10 +3,8 @@ import java.io.*;
 
 public class Main {
     static int n, m;
-    static int[] dist;
     static int INF = Integer.MAX_VALUE;
     static ArrayList<Node>[] adj;
-    static PriorityQueue<Node> pq = new PriorityQueue<>();
     static StringTokenizer st;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
@@ -14,9 +12,7 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         adj = new ArrayList[n + 1];
-        dist = new int[n + 1];
         for(int i=0; i<n+1; i++) adj[i] = new ArrayList<>();
-        Arrays.fill(dist, INF);
 
         for(int i=0; i<m; i++){
             st = new StringTokenizer(br.readLine(), " ");
@@ -28,30 +24,25 @@ public class Main {
         }
 
         st = new StringTokenizer(br.readLine(), " ");
-        int passNode1 = Integer.parseInt(st.nextToken());
-        int passNode2 = Integer.parseInt(st.nextToken());
-        long path1 = 0, path2 = 0;
-        // 1 → v1 → v2 → N
-        path1 += dijkstra(1, passNode1);
-        clear();
-        path1 += dijkstra(passNode1, passNode2);
-        clear();
-        path1 += dijkstra(passNode2, n);
-        clear();
+        int v1 = Integer.parseInt(st.nextToken());
+        int v2 = Integer.parseInt(st.nextToken());
 
-        // 1 → v2 → v1 → N
-        path2 += dijkstra(1, passNode2);
-        clear();
-        path2 += dijkstra(passNode2, passNode1);
-        clear();
-        path2 += dijkstra(passNode1, n);
-        clear();
-        
-        long result = Math.min(path1, path2);
+        long route1 = dijkstra(1, v1);
+        route1 += dijkstra(v1, v2);
+        route1 += dijkstra(v2, n);
+        long route2 = dijkstra(1, v2);
+        route2 += dijkstra(v2, v1);
+        route2 += dijkstra(v1, n);
+
+        // 둘 중 최솟값 선택, INF 이상이면 불가능한 경로
+        long result = Math.min(route1, route2);
         System.out.println(result >= INF ? -1 : result);
     }
 
     public static int dijkstra(int startNode, int endNode){
+        int[] dist = new int[n + 1];
+        Arrays.fill(dist, INF);
+        PriorityQueue<Node> pq = new PriorityQueue<>();
         pq.offer(new Node(0, startNode));
         dist[startNode] = 0;
         while(!pq.isEmpty()){
@@ -84,10 +75,5 @@ public class Main {
         public int compareTo(Node o){
             return Integer.compare(this.cost, o.cost);
         }
-    }
-
-    static void clear(){
-        Arrays.fill(dist, INF);
-        pq.clear();
     }
 }
