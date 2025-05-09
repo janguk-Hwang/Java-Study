@@ -1,7 +1,6 @@
 import java.util.*;
 import java.io.*;
 
-// 1번이랑은 필요가 없음
 public class Main {
     static int n, m;
     static int[] parent;
@@ -20,7 +19,7 @@ public class Main {
             st = new StringTokenizer(br.readLine(), " ");
             int x = Integer.parseInt(st.nextToken());
             int y = Integer.parseInt(st.nextToken());
-            union(x, y);    // x와 y는 이미 연결된 상태이므로 union
+            union(x, y);
         }
 
         for(int i=1; i<=n; i++){
