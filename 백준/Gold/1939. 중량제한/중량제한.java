@@ -14,7 +14,6 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
         adj = new ArrayList[n+1];
         for(int i=1; i<=n; i++) adj[i] = new ArrayList<>();
-        int max = 0;
         for(int i=0; i<m; i++){
             st = new StringTokenizer(br.readLine(), " ");
             int a = Integer.parseInt(st.nextToken());
@@ -22,12 +21,11 @@ public class Main {
             int c = Integer.parseInt(st.nextToken());
             adj[a].add(new Node(c, b));
             adj[b].add(new Node(c, a));
-            max = Math.max(max, c);
         }
         st = new StringTokenizer(br.readLine(), " ");
         int num1 = Integer.parseInt(st.nextToken());
         int num2 = Integer.parseInt(st.nextToken());
-
+        
         System.out.println(dijkstra(num1, num2));
     }
 
