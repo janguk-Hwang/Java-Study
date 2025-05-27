@@ -4,7 +4,7 @@ import java.io.*;
 public class Main {
     static int n, m;
     static int[] parent;
-    static long[] arr;
+    static int[] arr;
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -13,10 +13,10 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         parent = new int[n+1];
-        arr = new long[n+1];
+        arr = new int[n+1];
         for(int i=1; i<=n; i++){
             parent[i] = i;
-            arr[i] = Long.parseLong(br.readLine());
+            arr[i] = Integer.parseInt(br.readLine());
         }
         for(int i=0; i<m; i++){
             st = new StringTokenizer(br.readLine(), " ");
