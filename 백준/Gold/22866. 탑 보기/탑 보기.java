@@ -32,9 +32,6 @@ public class Main{
                     nearest[i][0] = stack.peek().num;
                     nearest[i][1] = dist;
                 }
-                if(dist == nearest[i][1] && stack.peek().num < nearest[i][0]){
-                    nearest[i][0] = stack.peek().num;
-                }
             }
             stack.push(building[i]);
         }
