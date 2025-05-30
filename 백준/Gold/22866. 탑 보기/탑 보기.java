@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main{
+public class Main {
     static int n;
     static int[] cnt;       // 볼 수 있는 건물의 개수
     static int[][] nearest;     // 가장 가까운 건물과의 거리와 건물의 번호
@@ -13,7 +13,7 @@ public class Main{
         n = Integer.parseInt(br.readLine());
         Building[] building = new Building[n+1];
         cnt = new int[n+1];
-        nearest = new int[n+1][2];
+        nearest = new int[n+1][2];      // 0: 거리, 1: 건물 번호
         for(int[] row : nearest) Arrays.fill(row, 100_001);
         st = new StringTokenizer(br.readLine());
         for(int i=1; i<=n; i++){
@@ -23,15 +23,13 @@ public class Main{
         for(int i=1; i<=n; i++){
             // 스택의 top에 자신보다 작거나 같은 빌딩이 있으면 pop()
             while(!stack.isEmpty() && stack.peek().height <= building[i].height){
-                stack.pop();
+                stack.pop();        // 현재 건물이 더 커서 이전의 낮은 건물들은 현재 건물에 가려져 볼 수 없으므로 제거
             }
             cnt[i] += stack.size();     // 좌측을 바라볼 때 볼 수 있는 건물의 수
             if(!stack.isEmpty()){
-                int dist = Math.abs(stack.peek().num - i);
-                if(dist < nearest[i][1]){
-                    nearest[i][0] = stack.peek().num;
-                    nearest[i][1] = dist;
-                }
+                int dist = i - stack.peek().num;
+                nearest[i][0] = stack.peek().num;
+                nearest[i][1] = dist;
             }
             stack.push(building[i]);
         }
@@ -43,13 +41,10 @@ public class Main{
             }
             cnt[i] += stack.size();     // 우측을 바라볼 때 볼 수 있는 건물의 수
             if(!stack.isEmpty()){
-                int dist = Math.abs(stack.peek().num - i);
+                int dist = stack.peek().num - i;
                 if(dist < nearest[i][1]){
                     nearest[i][0] = stack.peek().num;
                     nearest[i][1] = dist;
-                }
-                if(dist == nearest[i][1] && stack.peek().num < nearest[i][0]){
-                    nearest[i][0] = stack.peek().num;
                 }
             }
             stack.push(building[i]);
