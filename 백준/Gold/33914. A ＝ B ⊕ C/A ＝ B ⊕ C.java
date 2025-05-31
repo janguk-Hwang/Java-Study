@@ -17,6 +17,7 @@ public class Main {
         dp[0][0] = 1;
         for(int i=0; i<=x; i++){    // 1의 개수
             for(int j=0; j<=y; j++){    // 0의 개수
+                if(dp[i][j] == 0) continue;
                 // 0을 3개 더 사용해도 y개를 넘지 않으면
                 if(j+3 <= y){
                     dp[i][j+3] = (dp[i][j+3] + dp[i][j]) % mod;
