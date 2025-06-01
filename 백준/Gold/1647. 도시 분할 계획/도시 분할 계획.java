@@ -22,7 +22,7 @@ public class Main {
         }
         int edgeCnt = 0;
         int total = 0;
-        while(edgeCnt < n-2 && !pq.isEmpty()){
+        while(edgeCnt < n-2){
             Node now = pq.poll();
             if(find(now.from) != find(now.to)){
                 union(now.from, now.to);
