@@ -37,9 +37,8 @@ public class Main {
             for(int j=0; j<8; j++){
                 int nr = row + kdr[j];
                 int nc = col + kdc[j];
-                if(nr >= 1 && nr <= n && nc >= 1 && nc <= m){
-                    matrix[nr][nc] = 1;
-                }
+                if(nr < 1 || nr > n || nc < 1 || nc > m) continue;
+                matrix[nr][nc] = 1;
             }
         }
 
