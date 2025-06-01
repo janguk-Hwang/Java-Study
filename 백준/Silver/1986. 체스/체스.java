@@ -24,7 +24,6 @@ public class Main {
             int row = Integer.parseInt(st.nextToken());
             int col = Integer.parseInt(st.nextToken());
             matrix[row][col] = 1;
-            horse[row][col] = true;
             queen.add(new int[]{row, col});
         }
 
