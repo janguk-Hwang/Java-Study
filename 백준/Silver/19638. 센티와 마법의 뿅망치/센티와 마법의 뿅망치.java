@@ -17,8 +17,7 @@ public class Main {
         while(t-- > 0){
             if(pq.peek() < h){
                 sb.append("YES").append("\n").append(cnt);
-                System.out.print(sb);
-                return;
+                break;
             }
             int temp = pq.poll();
             if(temp == 1){
@@ -31,6 +30,8 @@ public class Main {
         if(sb.length() == 0){
             sb.append((pq.peek() < h ? "YES\n" + cnt : "NO\n" + pq.peek()));
             System.out.print(sb);
+            return;
         }
+        System.out.print(sb);
     }
 }
