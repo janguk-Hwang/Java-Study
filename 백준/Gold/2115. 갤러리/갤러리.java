@@ -15,16 +15,12 @@ public class Main {
         int temp1 = 0; int temp2 = 0; int total = 0;
         for(int i=0; i<n-1; i++){
             for(int j=0; j<m; j++){
-                if(matrix[i][j] == 'X' && matrix[i+1][j] == '.'){
-                    temp1++;
-                }
+                if(matrix[i][j] == 'X' && matrix[i+1][j] == '.') temp1++;
                 else{
                     total += temp1 / 2;
                     temp1 = 0;
                 }
-                if(matrix[i][j] == '.' && matrix[i+1][j] == 'X'){
-                    temp2++;
-                }
+                if(matrix[i][j] == '.' && matrix[i+1][j] == 'X') temp2++;
                 else{
                     total += temp2 / 2;
                     temp2 = 0;
@@ -35,16 +31,12 @@ public class Main {
         temp1 = 0; temp2 = 0;
         for(int i=0; i<m-1; i++){
             for(int j=0; j<n; j++){
-                if(matrix[j][i] == 'X' && matrix[j][i+1] == '.'){
-                    temp1++;
-                }
+                if(matrix[j][i] == 'X' && matrix[j][i+1] == '.') temp1++;
                 else{
                     total += temp1 / 2;
                     temp1 = 0;
                 }
-                if(matrix[j][i] == '.' && matrix[j][i+1] == 'X'){
-                    temp2++;
-                }
+                if(matrix[j][i] == '.' && matrix[j][i+1] == 'X') temp2++;
                 else{
                     total += temp2 /2;
                     temp2 = 0;
