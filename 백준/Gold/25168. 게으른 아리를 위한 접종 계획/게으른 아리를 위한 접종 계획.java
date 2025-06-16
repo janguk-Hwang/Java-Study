@@ -36,7 +36,7 @@ public class Main {
                 int ne = next[0];
                 int wait = next[1];
                 if(wait >= 7) dp[ne] = Math.max(dp[ne], dp[now] + wait + 1);
-                else dp[ne] = Math.max(dp[ne], dp[now] + wait);
+                if(wait < 7) dp[ne] = Math.max(dp[ne], dp[now] + wait);
                 indegree[ne]--;
                 if(indegree[ne] == 0) q.add(ne);
             }
