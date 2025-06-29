@@ -21,10 +21,14 @@ public class Main {
             arr[i] = Integer.parseInt(st.nextToken());
             totalPoint += arr[i];
         }
-        // 결정 문제: mid값을 그룹의 점수 하한선으로 설정했을 때 만들어지는 그룹의 수가 k보다 크거나 같은가? 아니면 k보다 작은가?
+        // 결정 문제: mid값을 그룹의 점수 하한선으로 설정했을 때 만들어지는 그룹의 수가 k보다 크거나 같은가?
         // mid down -> k up      mid up -> k down
         // k보다 크거나 같으면 true, 작으면 false 반환
         // tttttttttttttttfffffffffffffffff
+        // 시험지를 mid만큼씩 잘라서 그룹을 만들다가 mid만큼 만들 수 없어서 버려진 시험지들은?
+        // mid에 도달하지 못했으므로 그룹이 되지 않는다.
+        // 하지만 mid가 조정되면서 남는 시험지 없이 모두 사용될 것이다.
+        // 남는 시험지가 있다면 가장 합이 낮은 그룹에 넣으면 mid를 올릴 수 있기 때문이다.
         int start = 0; int end = totalPoint + 1;
         while(start + 1 < end){
             int mid = (start + end) / 2;
