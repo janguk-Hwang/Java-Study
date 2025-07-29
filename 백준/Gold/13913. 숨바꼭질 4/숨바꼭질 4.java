@@ -21,6 +21,7 @@ public class Main {
         time[n] = 0;
         prev[n] = -1;
 
+        outer:
         while(!q.isEmpty()){
             int now = q.poll();
             // 현재 위치에서 갈 수 있는 곳들에 대해 시간을 기록, 경로 추적을 위해 이전 노드 기록
@@ -30,6 +31,7 @@ public class Main {
                 if(time[next] == -1){
                     time[next] = time[now] + 1;
                     prev[next] = now;
+                    if(next == k) break outer;
                     q.offer(next);
                 }
             }
