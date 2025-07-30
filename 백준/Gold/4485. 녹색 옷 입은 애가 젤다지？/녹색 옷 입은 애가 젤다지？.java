@@ -5,7 +5,7 @@ public class Main {
     static final int INF = Integer.MAX_VALUE;
     static int[] dr = {-1, 0, 1, 0};
     static int[] dc = {0, 1, 0, -1};
-    static int n, t, testCaseNum;
+    static int n, testCaseNum;
     static ArrayList<Node>[] adj;
     static int[] dist;
     static int[][] matrix;
