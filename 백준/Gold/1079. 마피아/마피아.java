@@ -1,12 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-// 짝수 날 - 마피아가 죽임
-// 홀수 날 - 마피아를 추측해서 죽임
-// 마피아 or 시민이 한 쪽이 하나도 남지 않을 때까지 진행
-// 만약 참가자 i가 죽었다면, 다른 참가자 j의 유죄 지수는 R[i][j]만큼 변한다.
-// 낮에는 현재 게임에 남아있는 사람 중에 유죄 지수가 가장 높은 사람을 죽인다. 여러 명일 경우 번호가 가장 작은 사람을 죽인다.
-// 마피아가 죽인 경우에만 유죄 지수가 변한다.
+// 밤에만 날이 넘어간다.
 public class Main {
     static boolean[] alive, isMafia;
     static int n, E, max;
@@ -71,15 +66,9 @@ public class Main {
                 if(!alive[i] || i == E) continue;
                 // 상태 저장 또는 선택
                 alive[i] = false;
-                for(int j=0; j<n; j++){
-                    if(alive[j]){
-                        guilt[j] += R[i][j];
-                    }
-                }
+                for(int j=0; j<n; j++) if(alive[j]) guilt[j] += R[i][j];
                 backTracking(day + 1);
-                for(int j=0; j<n; j++){
-                    if(alive[j]) guilt[j] -= R[i][j];
-                }
+                for(int j=0; j<n; j++) if(alive[j]) guilt[j] -= R[i][j];
                 alive[i] = true;
             }
         }
@@ -96,7 +85,7 @@ public class Main {
                     }
                 }
             }
-            
+
             alive[killIdx] = false;
             backTracking(day);
             alive[killIdx] = true;
