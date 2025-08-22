@@ -27,7 +27,7 @@ public class Main {
             st = new StringTokenizer(br.readLine());
             for(int j=0; j<2; j++) arr[i][j] = Integer.parseInt(st.nextToken());
         }
-        Arrays.fill(dp, 1000 * 100 + 1);
+        Arrays.fill(dp, c * 100 + 1);
         dp[0] = 0;
         // 모든 도시에 대해서
         for(int i=0; i<n; i++){
@@ -36,7 +36,7 @@ public class Main {
                 dp[j] = Math.min(dp[j], dp[j - arr[i][1]] + arr[i][0]);
             }
         }
-        int rst = 1000 * 100 + 1;
+        int rst = c * 100 + 1;
         for(int i=c; i<c+101; i++) rst = Math.min(rst, dp[i]);
         System.out.print(rst);
     }
