@@ -1,8 +1,6 @@
 import java.io.*;
 import java.util.*;
 
-// 15!을 완전탐색을 불가
-// 백트래킹에서 가지치기하면 가능
 public class Main {
     static boolean[] visited;
     static int[][] arr;
