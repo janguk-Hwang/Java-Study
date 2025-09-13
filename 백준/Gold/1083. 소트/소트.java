@@ -20,12 +20,10 @@ public class Main {
 
         for(int i=0; i<n-1 && s>0; i++){
             int maxPos = i;
-            int tempj = 0;
             for(int j=i+1; j<n && j-i<=s; j++){
                 // s범위 내에 i번째 숫자보다 가장 큰 숫자를 찾음
                 if(list.get(j) > list.get(maxPos)){
                     maxPos = j;
-                    tempj = j;
                 }
             }
             // maxPos가 i 그대로면 이동 x
