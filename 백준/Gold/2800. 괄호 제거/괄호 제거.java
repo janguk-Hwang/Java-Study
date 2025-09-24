@@ -7,7 +7,7 @@ public class Main {
     static boolean[] visited;
     static List<int[]> pos = new ArrayList<>();
     static StringBuilder sb = new StringBuilder();
-    static List<String> list = new ArrayList<>();
+    static Set<String> set = new TreeSet<>();;
     static StringTokenizer st;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     public static void main(String[] args) throws IOException {
@@ -22,7 +22,6 @@ public class Main {
         }
         visited = new boolean[str.length()];    // 참이면 해당 문자는 제거되야 함
         comb(0);
-        Set<String> set = new TreeSet<>(list);
         for(String s : set) sb.append(s).append("\n");
         System.out.print(sb);
     }
@@ -33,7 +32,7 @@ public class Main {
         if(depth == pos.size()){
             for(int i=0; i<str.length(); i++) if(!visited[i]) sb1.append(str.charAt(i));
             if(!String.valueOf(sb1).equals(str)){
-                list.add(String.valueOf(sb1));
+                set.add(String.valueOf(sb1));
             }
             return;
         }
