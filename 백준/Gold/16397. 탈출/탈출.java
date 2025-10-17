@@ -41,9 +41,10 @@ public class Main {
     static int buttonB(int num){
         if(num == 0) return 0;
         num *= 2;
-        if(num >= 100_000) return -1; // 무효 처리
-        String s = String.valueOf(num);
-        num -= (int)Math.pow(10, s.length() - 1);
+        if(num >= 100_000) return -1;
+        int pow = 1;
+        while(num >= pow * 10) pow *= 10;
+        num -= pow;
         return num;
     }
 }
