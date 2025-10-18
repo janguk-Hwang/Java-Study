@@ -42,7 +42,7 @@ public class Main {
         StringBuilder sb = new StringBuilder();
         sb.append(s, 0, start);     // 뒤집기를 시작할 이전 문자열 추가
         for(int i=end; i>=start; i--) sb.append(s.charAt(i));
-        sb.append(s.substring(end+1));      // 뒤집기 구간 이후 문자열 추가
+        sb.append(s, end + 1, s.length());      // 뒤집기 구간 이후 문자열 추가
         return sb.toString();
     }
 
