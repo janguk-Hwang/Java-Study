@@ -16,7 +16,7 @@ public class Main {
         r = new int[n];
         for(int i=0; i<n; i++) Arrays.fill(dist[i], INF);
         for(int i=0; i<n; i++) dist[i][i] = 0;
-        for (int i = 0; i < n; i++) {
+        for(int i=0; i<n; i++){
             st = new StringTokenizer(br.readLine());
             l[i] = Integer.parseInt(st.nextToken());
             r[i] = Integer.parseInt(st.nextToken());
