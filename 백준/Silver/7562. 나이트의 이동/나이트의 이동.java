@@ -3,7 +3,6 @@ import java.util.*;
 
 public class Main {
     static int t;
-    static int[][] matrix;
     static boolean[][] visited;
     static int[] dr = {-2, -1, 1, 2, 2, 1, -1, -2};
     static int[] dc = {1, 2, 2, 1, -1, -2, -2, -1};
@@ -15,7 +14,6 @@ public class Main {
         while(t-- > 0){
             int l = 0; int[] start = new int[2]; int[] end = new int[2];
             l = Integer.parseInt(br.readLine());
-            matrix = new int[l][l];
             st = new StringTokenizer(br.readLine());
             start[0] = Integer.parseInt(st.nextToken());
             start[1] = Integer.parseInt(st.nextToken());
