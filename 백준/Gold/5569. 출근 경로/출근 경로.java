@@ -16,14 +16,10 @@ public class Main {
         w = Integer.parseInt(st.nextToken());
         h = Integer.parseInt(st.nextToken());
         dp = new int[w + 1][h + 1][2][2];   // 행, 열, 현재 방향, 이전 방향
-        for(int i=2; i<=w; i++){
-            dp[i][1][0][0] = 1;
-            dp[i][1][0][1] = 1;
-        }
-        for(int i=2; i<=h; i++){
-            dp[1][i][1][0] = 1;
-            dp[1][i][1][1] = 1;
-        }
+        dp[1][1][0][0] = 1;
+        dp[1][1][1][0] = 1;
+        for(int i=2; i<=w; i++) dp[i][1][0][1] = 1;
+        for(int i=2; i<=h; i++) dp[1][i][1][1] = 1;
         for(int i=2; i<=w; i++){
             for(int j=2; j<=h; j++){
                 // i, j를 북쪽으로 이동하여 도착했고, 이전에 방향을 바뀐 경우
