@@ -12,7 +12,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         t = Integer.parseInt(br.readLine());
         while(t-- > 0){
-            int l = 0; int[] start = new int[2]; int[] end = new int[2];
+            int l; int[] start = new int[2]; int[] end = new int[2];
             l = Integer.parseInt(br.readLine());
             st = new StringTokenizer(br.readLine());
             start[0] = Integer.parseInt(st.nextToken());
@@ -28,7 +28,6 @@ public class Main {
             q.add(new int[]{start[0], start[1], 0});
             visited = new boolean[l + 1][l + 1];
             visited[start[0]][start[1]] = true;
-            boolean flag = true;
             outer:
             while(!q.isEmpty()){
                 int[] cur = q.poll();
@@ -37,7 +36,6 @@ public class Main {
                     int nc = cur[1] + dc[d];
                     if(nr == end[0] && nc == end[1]){
                         sb.append(cur[2] + 1).append("\n");
-                        flag = false;
                         break outer;
                     }
                     if(nr < 0 || nr >= l || nc < 0 || nc >= l || visited[nr][nc]) continue;
