@@ -7,8 +7,8 @@ import java.util.*;
 public class Main {
     static int n, m, k;
     static int[] parent;
-    static List<Integer> list = new ArrayList<>();
-    static List<Integer> culsu = new ArrayList<>();
+    static int[] list;
+    static int[] culsu;
     static StringBuilder sb = new StringBuilder();
     static StringTokenizer st;
     static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -17,20 +17,22 @@ public class Main {
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
+        list = new int[m];
         st = new StringTokenizer(br.readLine());
-        for(int i=0; i<m; i++) list.add(Integer.parseInt(st.nextToken()));
+        for(int i = 0; i < m; i++) list[i] = Integer.parseInt(st.nextToken());
+        culsu = new int[k];
         st = new StringTokenizer(br.readLine());
-        for(int i=0; i<k; i++) culsu.add(Integer.parseInt(st.nextToken()));
+        for(int i = 0; i < k; i++) culsu[i] = Integer.parseInt(st.nextToken());
         parent = new int[m + 1];
-        for(int i=1; i<=m; i++) parent[i] = i;
-        list.sort(null);
+        for(int i = 1; i <= m; i++) parent[i] = i;
+        Arrays.sort(list);
         for(int i : culsu){
-            int idx = Collections.binarySearch(list, i);
+            int idx = Arrays.binarySearch(list, i);
             if(idx >= 0) idx++;
             else idx = -(idx + 1);
             int next = find(idx);
-            sb.append(list.get(next)).append("\n");
-            union(next, next+1);
+            sb.append(list[next]).append("\n");
+            union(next, next + 1);
         }
         System.out.print(sb);
     }
