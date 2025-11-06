@@ -42,17 +42,15 @@ public class Main {
             isBelieve[temp] = true;
         }
         while(!q.isEmpty()){
-            int size = q.size();
-            for(int i=0; i<size; i++){
-                int cur = q.poll();
-                for(int next : adj[cur]){
-                    if(isBelieve[next]) continue;
-                    believeCnt[next]++;
-                    if(believeCnt[next] * 2 >= adj[next].size()){
-                        isBelieve[next] = true;
-                        rst[next] = rst[cur] + 1;
-                        q.add(next);
-                    }
+            int cur = q.poll();
+            for(int next : adj[cur]){
+                if(isBelieve[next]) continue;
+                // 오늘 믿은 사람이 오늘 또 다른 사람에게 영향을 주지 않도록 배열로 각각 참조하는 값을 독립적으로
+                believeCnt[next]++;
+                if(believeCnt[next] * 2 >= adj[next].size()){
+                    isBelieve[next] = true;
+                    rst[next] = rst[cur] + 1;
+                    q.add(next);
                 }
             }
         }
