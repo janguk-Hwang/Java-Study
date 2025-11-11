@@ -12,29 +12,34 @@ public class Main {
         n = Integer.parseInt(br.readLine());
         st = new StringTokenizer(br.readLine());
         arr = new long[n + 1];
-        for(int i=1; i<=n; i++) arr[i] = Long.parseLong(st.nextToken());
+        for (int i = 1; i <= n; i++) arr[i] = Long.parseLong(st.nextToken());
+        // n이 2인 경우
+        if(n == 2){
+            System.out.print(Math.max(Math.max(1 + arr[2], 1 + arr[1]), arr[1] + arr[2]));
+            return;
+        }
 
-        // 1번 방이 채워지는 경우
-
+        /* 1번 방이 채워지는 경우 */
         // 2번 방이 빈 경우
         long pre0 = arr[2];
         // 2번 방이 찬 경우
         long pre1 = 0;
-        for(int i=3; i<=n-1; i++){
+        for (int i = 3; i <= n - 1; i++) {
             long cur0 = Math.max(pre0, pre1) + arr[i];
             long cur1 = pre0 + 1;
-            pre0 = cur0; pre1 = cur1;
+            pre0 = cur0;
+            pre1 = cur1;
         }
         long rst1 = 1 + Math.max(pre0, pre1) + arr[n];
 
-        // 1번 방이 비어지는 경우
-
+        /* 1번 방이 비어지는 경우 */
         pre0 = arr[2];
         pre1 = 1;
-        for(int i=3; i<=n; i++){
+        for (int i = 3; i <= n; i++) {
             long cur0 = Math.max(pre0, pre1) + arr[i];
             long cur1 = pre0 + 1;
-            pre0 = cur0; pre1 = cur1;
+            pre0 = cur0;
+            pre1 = cur1;
         }
         long rst2 = arr[1] + Math.max(pre0, pre1);
         System.out.print(Math.max(rst1, rst2));
