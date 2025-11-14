@@ -31,7 +31,7 @@ public class Main {
         st = new StringTokenizer(br.readLine());
         x = Long.parseLong(st.nextToken());
         k = Long.parseLong(st.nextToken());
-        for(int i=0; i<62; i++) if((x & (1L << i)) == 0) list.add(i);
+        for(int i=0; i<61; i++) if((x & (1L << i)) == 0) list.add(i);
         long rst = 0;
         for(int i=list.size()-1; i>=0; i--){
             if(k == 0) break;
