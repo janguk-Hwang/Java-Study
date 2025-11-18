@@ -18,29 +18,30 @@ public class Main {
         list = new ArrayList[27];
         for(int i=1; i<=26; i++) list[i] = new ArrayList<>();
         loseCnt = new int[n + 1];
+        visited = new boolean[27];
         for(int i=1; i<=n; i++){
             String word = br.readLine();
-            visited = new boolean[27];
+            Arrays.fill(visited, false);
             for(int j=0; j<word.length(); j++){
-                char c = word.charAt(j);
-                if(visited[c - 'a' + 1]) continue;
-                visited[c - 'a' + 1] = true;
-                list[c - 'a' + 1].add(i);
+                int idx = word.charAt(j) - 'a' + 1;
+                if(visited[idx]) continue;
+                visited[idx] = true;
+                list[idx].add(i);
             }
         }
         int rst = n;
         for(int i=0; i<m; i++){
             st = new StringTokenizer(br.readLine());
             int com = Integer.parseInt(st.nextToken());
-            char ch = st.nextToken().charAt(0);
+            int idx = st.nextToken().charAt(0) - 'a' + 1;
             if(com == 1){
-                for(int p : list[ch - 'a' + 1]){
+                for(int p : list[idx]){
                     if(loseCnt[p] == 0) rst--;
                     loseCnt[p]++;
                 }
             }
             if(com == 2){
-                for(int p : list[ch - 'a' + 1]){
+                for(int p : list[idx]){
                     loseCnt[p]--;
                     if(loseCnt[p] == 0) rst++;
                 }
