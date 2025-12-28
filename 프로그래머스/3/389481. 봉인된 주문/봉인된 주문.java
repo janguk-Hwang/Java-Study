@@ -14,7 +14,7 @@ class Solution {
         banArr = new long[banLen];
         for(int i=0; i<banLen; i++){
             wordLen = bans[i].length();
-            long ord = 0;   // bans[i]보다 글자 수가 적은 주문의 개수
+            long ord = 0;
             // 26개, 26^2개, 26^3개 ...
             long temp = 26;
             for(int j=1; j<wordLen; j++){
@@ -22,15 +22,15 @@ class Solution {
                 temp *= alpabetNum;
             }
             
-            temp = 1;
-            temp = (long)Math.pow(alpabetNum, wordLen-1);
+            temp /= alpabetNum;
+            //temp = (long)Math.pow(alpabetNum, wordLen-1);
             for(int j=0; j<wordLen; j++){
                 ord += (bans[i].charAt(j) - 'a') * temp;
                 temp /= alpabetNum;
             }
             // ord에는 현재 단어의 번호(순서)를 의미
             
-            // bans[i] 주문의 삭제 전 번호(순서)
+            // bans[i] 주문의 삭제 전 번호(순서) - ord는 0-based, 문제에서의 주문은 1-based
             banArr[i] = ord + 1;
             
         }
