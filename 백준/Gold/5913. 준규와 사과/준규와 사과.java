@@ -21,7 +21,7 @@ public class Main {
         visited[0][0] = true;
         arr[4][4] = 0;
         visited[4][4] = true;
-        long rst = backtracking(0, 0, 4, 4, 25 - k - 2);
+        int rst = backtracking(0, 0, 4, 4, 25 - k - 2);
         System.out.println(rst);
     }
 
