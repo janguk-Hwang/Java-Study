@@ -16,7 +16,7 @@ class Solution {
             for(int d=0; d<4; d++){
                 int nx = tempX + dx[d];
                 int ny = tempY + dy[d];
-                if(nx >= 1 && nx <= n && ny >= 1&& ny <= m){
+                if(nx >= 1 && nx <= n && ny >= 1 && ny <= m){
                     int nDist = Math.abs(nx - r) + Math.abs(ny - c);
                     if(nDist <= k - i - 1){
                         sb.append(dir[d]);
